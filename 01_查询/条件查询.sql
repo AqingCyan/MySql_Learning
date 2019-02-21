@@ -68,3 +68,10 @@ SELECT CONCAT(last_name, first_name) AS 'name',
        commission_pct
 FROM employees
 WHERE commission_pct <=> NULL;
+
+# 案例11：查询员工号为176的员工姓名和部门号以及年薪（包括奖金）
+SELECT CONCAT(last_name, first_name) AS 'name',
+       department_id,
+       salary * 12 * (1 + IFNULL(commission_pct, 0)) AS '年薪'
+FROM employees
+WHERE employee_id = 176;
