@@ -29,7 +29,7 @@ SELECT INSTR('AqingCyan', 'ing') AS out_put;
 SELECT LENGTH(TRIM('  Aqing   ')) AS out_put,
        LENGTH('  Aqing   ')       AS 'old';
 
-SELECT TRIM('a'FROM 'aaaQingaaa') AS 'result';
+SELECT TRIM('a' FROM 'aaaQingaaa') AS 'result';
 
 # LPAD 左填充指定字符到指定长度
 SELECT LPAD('Aqing', 10, '*') AS 'result';
@@ -71,3 +71,25 @@ SELECT YEAR(NOW());
 SELECT MONTH(NOW());
 SELECT DAY(NOW());
 SELECT HOUR(NOW());
+
+# STR_TO_DATE：将日期格式的字符转换成指定格式的日期
+SELECT STR_TO_DATE('1998-6-2', '%Y-%c-%d') AS out_put;
+
+# 案例：查询入职日期为1992-4-3的员工信息
+SELECT *
+FROM myemployees.employees
+WHERE hiredate = STR_TO_DATE('4-3-1992', '%c-%d-%Y');
+
+# DATE_FORMAT：将日期转换成字符
+SELECT DATE_FORMAT(NOW(), '%Y年%m月%d日') AS 'date';
+
+# 案例：查询有奖金的员工的员工名和入职日期（xx月/xx日 xx年）
+SELECT CONCAT(myemployees.employees.last_name, myemployees.employees.first_name) AS 'name',
+       DATE_FORMAT(myemployees.employees.hiredate, '%m月/%d日 %y年')
+FROM myemployees.employees
+WHERE myemployees.employees.commission_pct IS NOT NULL;
+
+# 其他函数
+# VERSION：查看数据库版本号
+# DATABASE()：查看当前数据库
+# SELECT USER()：查看当前用户
